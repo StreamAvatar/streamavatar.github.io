@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamAvatar: Streaming Diffusion Models for Real-Time Interactive Human Avatars</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JZHS9X6VLL"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-JZHS9X6VLL');
+    </script>
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="topnav">
+        <div class="nav-container">
+            <div class="nav-menu">
+                <div class="dropdown">
+                    <button class="dropdown-toggle">
+                        More Research
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="https://raineggplant.github.io/FEE4TV/" target="_blank" rel="noopener">FEE4TV</a>
+                        <a href="https://diffposetalk.github.io/" target="_blank" rel="noopener">DiffPoseTalk</a>
+                        <a href="https://human-tailor.github.io/" target="_blank" rel="noopener">Tailor</a>
+                        <a href="https://streamavatar.github.io/" target="_blank" rel="noopener">StreamAvatar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <h1 class="title">StreamAvatar</h1>
+            <h2 class="subtitle">Streaming Diffusion Models for Real-Time Interactive Human Avatars</h2>
+            
+            <div class="authors">
+                <span class="author"><a href="https://github.com/RainEggplant" target="_blank">Zhiyao Sun</a><sup>1*</sup></span>
+                <span class="author"><a href="https://ziqiaopeng.github.io/" target="_blank">Ziqiao Peng</a><sup>2*</sup></span>
+                <span class="author">Yifeng Ma<sup>3*</sup></span>
+                <span class="author">Yi Chen<sup>3</sup></span>
+                <span class="author">Zhengguang Zhou<sup>3</sup></span>
+                <span class="author">Zixiang Zhou<sup>3</sup></span>
+                <span class="author"><a href="https://github.com/GuozhenZhang1999" target="_blank">Guozhen Zhang</a><sup>4</sup></span>
+                <span class="author">Youliang Zhang<sup>1</sup></span>
+                <span class="author">Yuan Zhou<sup>3†</sup></span>
+                <span class="author">Qinglin Lu<sup>3‡</sup></span>
+                <span class="author"><a href="https://yongjinliu.github.io/" target="_blank">Yong-Jin Liu</a><sup>1‡</sup></span>
+            </div>
+            <div class="affiliations">
+                <span><sup>1</sup>Tsinghua University</span>
+                <span><sup>2</sup>Renmin University of China</span>
+                <span><sup>3</sup>Tencent Hunyuan</span>
+                <span><sup>4</sup>Nanjing University</span>
+            </div>
+            <div class="author-notes">
+                <span><sup>*</sup>Equal Contribution</span>
+                <span><sup>†</sup>Project Leader</span>
+                <span><sup>‡</sup>Corresponding Authors</span>
+            </div>
+            
+            <div class="links">
+                <a href="https://arxiv.org" class="btn btn-primary">
+                    <i class="ai ai-arxiv"></i>
+                    arXiv
+                </a>
+                <!-- <a href="https://arxiv.org" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    arXiv
+                </a> -->
+                <a href="#bibtex" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    BibTeX
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Teaser Image -->
+    <section class="teaser">
+        <div class="container">
+            <img src="assets/teaser.jpg" alt="StreamAvatar Teaser - Two-stage adaptation framework transforming non-causal human video model to causal real-time model" class="teaser-image">
+            <p class="teaser-caption">
+                We propose <strong>StreamAvatar</strong>, which adapts human video diffusion models for real-time, streaming, and interactive video generation through a two-stage framework. Given a reference image and user/agent audio streams as input, StreamAvatar generates high-resolution human video with vivid talking/listening expressions and gestures in a streaming manner, <strong>achieving high quality at low latency and computational cost</strong>. 
+            </p>
+        </div>
+    </section>
+
+    <!-- Abstract -->
+    <section class="abstract">
+        <div class="container">
+            <h2 class="section-title">Abstract</h2>
+            <div class="abstract-content">
+                Real-time, streaming interactive avatars represent a critical yet challenging goal in digital human research. Although diffusion-based human avatar generation methods achieve remarkable success, their non-causal architecture and high computational costs make them unsuitable for streaming. Moreover, existing interactive approaches are typically limited to head-and-shoulder region, limiting their ability to produce gestures and body motions. To address these challenges, we propose a two-stage autoregressive adaptation and acceleration framework that applies <strong>autoregressive distillation</strong> and <strong>adversarial refinement</strong> to adapt a high-fidelity human video diffusion model for <strong>real-time, interactive streaming</strong>. To ensure long-term stability and consistency, we introduce three key components: a <strong>Reference Sink</strong>, a <strong>Reference-Anchored Positional Re-encoding (RAPR)</strong> strategy, and a <strong>Consistency-Aware Discriminator</strong>. Building on this framework, we develop a one-shot, interactive, human avatar model capable of generating both natural talking and listening behaviors with coherent gestures. Extensive experiments demonstrate that our method achieves state-of-the-art performance, surpassing existing approaches in generation quality, real-time efficiency, and interaction naturalness.
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Video -->
+    <section class="demo-video">
+        <div class="container">
+            <h2 class="section-title">Demo Video</h2>
+            <div class="video-wrapper main-video">
+                <iframe style="width: 100%; aspect-ratio: 16/9; border: none;" src="https://www.youtube.com/embed/BM94k1KEY1U?si=-hWEo8noVGztdOIB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Talking Human Video Generation -->
+    <section class="results" id="talking">
+        <div class="container">
+            <h2 class="section-title">Talking Human Video Generation</h2>
+            <p class="section-description">
+                Our method demonstrates accurate lip synchronization, high visual quality, good identity preservation, less distortion, and rich motions, while requiring much less generation time.
+            </p>
+
+            <!-- Normal Talking -->
+            <div class="subsection">
+                <h3 class="subsection-title">Samples</h3>
+                <div class="video-grid grid-4">
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/normal/01.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/normal/02.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/normal/03.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/normal/04.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/normal/05.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/normal/06.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/normal/07.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/normal/08.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                <details class="more-samples">
+                    <summary>Show more samples</summary>
+                    <div class="video-grid grid-4">
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/09.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/10.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/11.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/12.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/13.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/14.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/15.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/16.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                          <video controls loop preload="metadata">
+                              <source src="assets/videos/talk/normal/17.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/18.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/19.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/20.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                          <video controls loop preload="metadata">
+                              <source src="assets/videos/talk/normal/21.mp4" type="video/mp4">
+                          </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/22.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/23.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="video-item">
+                            <video controls loop preload="metadata">
+                                <source src="assets/videos/talk/normal/24.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </details>
+            </div>
+
+            <!-- Stylized -->
+            <div class="subsection">
+                <h3 class="subsection-title">Stylized</h3>
+                <p class="subsection-description">Our method also works on stylized characters such as cartoons and drawings.</p>
+                <div class="video-grid grid-5">
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/stylish/01.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/stylish/02.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/stylish/03.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/stylish/04.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/talk/stylish/05.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Singing -->
+            <div class="subsection">
+                <h3 class="subsection-title">Singing</h3>
+                <p class="subsection-description">Our method can generate singing human videos.</p>
+                <div class="video-grid grid-4">
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/sing/01.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/sing/02.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/sing/03.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/sing/04.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Long Videos -->
+            <div class="subsection">
+                <h3 class="subsection-title">Long Videos</h3>
+                <p class="subsection-description">Our streaming approach enables infinite-length video generation with consistent quality.</p>
+                <div class="video-grid grid-3">
+                    <div class="video-item">
+                        <video controls preload="metadata">
+                            <source src="assets/videos/long/00.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls preload="metadata">
+                            <source src="assets/videos/long/01.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls preload="metadata">
+                            <source src="assets/videos/long/02.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="video-item">
+                        <video controls preload="metadata">
+                            <source src="assets/videos/long/03.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison -->
+            <div class="subsection comparison">
+                <h3 class="subsection-title">Comparison with State-of-the-Art Methods</h3>
+                <p class="subsection-description">
+                    We compare our model with state-of-the-art talking human video generation methods, including Hallo3, HunyuanVideo-Avatar (HY-Avatar), OmniAvatar, EchoMimicV3, and StableVideo. Our method achieves realistic and consistent avatars with accurate synchronization and rich motion dynamics while exhibiting fewer distortions, even though it requires much less computation.
+                </p>
+                <div class="video-wrapper comparison-video">
+                    <video controls preload="metadata">
+                        <source src="assets/videos/talk/cmp_talk.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Human Video Generation -->
+    <section class="results alt-bg" id="interactive">
+        <div class="container">
+            <h2 class="section-title">Interactive Human Video Generation</h2>
+            <p class="section-description">
+                StreamAvatar can respond to user audio input and generate natural listening reactions, enabling truly interactive avatar experiences.
+            </p>
+
+            <!-- Interactive Samples -->
+            <div class="subsection">
+                <h3 class="subsection-title">Interactive Generation Samples</h3>
+                <p class="subsection-description">Our method can respond to the listening audio and generate natural reactions, and transition smoothly between talking and listening states.</p>
+                <div class="video-grid grid-5">
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/interact/01.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/interact/02.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/interact/03.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/interact/04.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-item">
+                        <video controls loop preload="metadata">
+                            <source src="assets/videos/interact/05.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison with Head Avatars -->
+            <div class="subsection comparison">
+                <h3 class="subsection-title">Comparison with Interactive Head Avatars</h3>
+                <p class="subsection-description">
+                    We compare our method with state-of-the-art interactive head avatars: INFP and ARIG. Although our model is designed and trained for body video generation, it still performs on par with dedicated head avatar methods, while delivering the best visual quality.
+                </p>
+                <div class="video-wrapper comparison-video">
+                    <video controls preload="metadata">
+                        <source src="assets/videos/interact/cmp_interact_head.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="subsection comparison">
+                <h3 class="subsection-title">Comparison with Streaming Avatars</h3>
+                <!-- Comparison with MIDAS -->
+                <p class="subsection-description">
+                    We compare our method with state-of-the-art streaming avatars. Compared to MIDAS, our method produces more accurate lip synchronization and more vivid expressions. It is also worth noting that <strong>our method is one-shot</strong>, whereas MIDAS requires person-specific fine-tuning.
+                </p>
+                <div class="video-wrapper comparison-video">
+                    <video controls preload="metadata">
+                        <source src="assets/videos/interact/cmp_interact_midas.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <!-- Comparison with X-Streamer -->
+                <br/>
+                <p class="subsection-description">
+                    Compared to X-Streamer, our method exhibits more natural listening behavior, more diverse motions, and higher visual quality.
+                </p>
+                <div class="video-wrapper comparison-video">
+                    <video controls preload="metadata">
+                        <source src="assets/videos/interact/cmp_interact_xstreamer.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quantitative Results -->
+    <section class="results" id="results">
+        <div class="container">
+            <h2 class="section-title">Evaluation</h2>
+            
+            <div class="results-stack">
+                <div class="result-card">
+                    <h3 class="subsection-title">Quantitative Results on the EchoMimicV2 Testing Dataset (EMTD)</h3>
+                    <p class="subsection-description">
+                        Our method achieves superior or highly competitive performance across all metrics. We also report the number of denoising steps, resolution, and time taken to produce a 5-second video on a single H20 GPU. Our method is significantly faster than other methods.
+                    </p>
+                    <img src="assets/metrics.png" alt="Quantitative metrics comparison table" class="result-image">
+                </div>
+                
+                <div class="result-card">
+                    <h3 class="subsection-title">User Study</h3>
+                    <p class="subsection-description">
+                        User preference study comparing our method against baselines across multiple criteria: audio–lip synchronization (Sync), motion dynamics (Dynamics), temporal continuity and smoothness (Continuity), visual quality and naturalness (Quality), and identity preservation (Identity). Our method consistently outperforms the state-of-the-art baselines across nearly all comparisons, which aligns closely with our quantitative evaluation.
+                    </p>
+                    <img src="assets/user_study.png" alt="User study results" class="result-image result-image-narrow">
+                </div>
+
+                <div class="result-card">
+                    <h3 class="subsection-title">Inference Speed</h3>
+                    <p class="subsection-description">
+                         To enable real-time generation, we distribute the DiT denoising and VAE decoding processes across <strong>two H800 GPUs</strong>. Performance is evaluated using the <strong>Real Time Factor (RTF)</strong> and <strong>First Frame Delay (FFD)</strong>. Metrics for generating videos at 25 FPS with a resolution of 928×704 are reported in the table below
+                         We report the metrics when generating a 25 FPS videos at 928×704 resolution in the table below. Since all RTF values are below 1, the system supports real-time generation. The overall latency is FFD + input chunk length (0.48s) = <strong>1.20s</strong>.
+                    </p>
+                    <table class="metrics-table">
+                        <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>RTF</th>
+                                <th>FFD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>DiT</td>
+                                <td>0.69</td>
+                                <td>0.33s</td>
+                            </tr>
+                            <tr>
+                                <td>VAE</td>
+                                <td>0.82</td>
+                                <td>0.39s</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Method Pipeline -->
+    <section class="method alt-bg" id="method">
+        <div class="container">
+            <h2 class="section-title">Method</h2>
+            <p class="section-description">
+                Our two-stage adaptation framework transforms a bidirectional (non-causal) human video diffusion model into a block-causal streaming model capable of real-time, infinite-length generation.
+            </p>
+            <div class="pipeline-wrapper">
+                <img src="assets/pipeline.png" alt="StreamAvatar pipeline - Block-Causal DiT with two-stage adaptation" class="pipeline-image">
+            </div>
+            <div class="method-details">
+                <div class="method-stage">
+                    <h4>Stage 1: Autoregressive Distillation</h4>
+                    <p>The original bidirectional DiT is re-architected into a block-causal DiT, followed by Score Identity Distillation. A Reference Sink and Reference-Anchored Positional Re-encoding (RAPR) is introduced to improve long-term stability and consistency.</p>
+                </div>
+                <div class="method-stage">
+                    <h4>Stage 2: Adversarial Refinement</h4>
+                    <p>We further refine the model with a consistency-aware discriminator to improve generation quality, consistency, and stability.</p>
+                </div>
+            </div>
+            <div class="method-figure">
+                <img src="assets/attention.png" alt="Vanilla RoPE vs RoPE with RAPR comparison" class="method-figure-image">
+                <p class="method-figure-caption">
+                    <strong>Vanilla RoPE vs RoPE with Reference-Anchored Positional Re-encoding (RAPR).</strong> RAPR improves long video generation without the need for long video training.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BibTeX -->
+    <section class="bibtex" id="bibtex">
+        <div class="container">
+            <h2 class="section-title">BibTeX</h2>
+            <p class="section-description">If you find our work useful, please consider citing:</p>
+            <div class="bibtex-wrapper">
+                <button class="copy-btn" onclick="copyBibtex()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    Copy
+                </button>
+                <pre><code id="bibtex-code">@article{streamavatar2025,
+  title={StreamAvatar: Streaming Diffusion Models for Real-Time Interactive Human Avatars},
+  author={Sun, Zhiyao and Peng, Ziqiao and Ma, Yifeng and Chen, Yi and Zhou, Zhengguang and Zhou, Zixiang and Zhang, Guozhen and Zhang, Youliang and Zhou, Yuan and Lu, Qinglin and Liu, Yong-Jin},
+  journal={arXiv preprint},
+  year={2025}
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>StreamAvatar © 2025</p>
+            <!-- <p class="footer-note">This website template is designed for academic paper presentation.</p> -->
+        </div>
+    </footer>
+
+    <script>
+        function copyBibtex() {
+            const bibtexCode = document.getElementById('bibtex-code').textContent;
+            navigator.clipboard.writeText(bibtexCode).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copy';
+                }, 2000);
+            });
+        }
+
+        // Play video on hover
+        document.querySelectorAll('.video-grid video').forEach(video => {
+            video.addEventListener('mouseenter', function() {
+                this.play();
+            });
+            video.addEventListener('mouseleave', function() {
+                this.pause();
+            });
+        });
+    </script>
+</body>
+</html>
+
