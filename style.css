@@ -128,6 +128,28 @@ section {
     gap: 1rem;
 }
 
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.9);
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
 .dropdown {
     position: relative;
 }
@@ -143,6 +165,7 @@ section {
     color: rgba(255, 255, 255, 0.9);
     font-family: var(--font-serif);
     font-size: 0.95rem;
+    line-height: 1.5;
     cursor: pointer;
     transition: all var(--transition-fast);
 }
