@@ -283,6 +283,12 @@ section {
     text-transform: uppercase;
     border: 1px solid rgba(255, 255, 255, 0.4);
     box-shadow: 0 0 18px rgba(0, 0, 0, 0.35), 0 0 24px rgba(237, 137, 54, 0.65);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.venue-tag:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.45), 0 0 32px rgba(237, 137, 54, 0.8);
 }
 
 .authors {
@@ -754,6 +760,12 @@ section {
     border-radius: 12px;
     box-shadow: var(--shadow-lg);
     margin-bottom: 2.5rem;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.pipeline-wrapper:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
 }
 
 .pipeline-image {
@@ -778,6 +790,12 @@ section {
     border-radius: 10px;
     box-shadow: var(--shadow-md);
     border-top: 4px solid var(--accent);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.method-stage:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
 }
 
 .method-stage h4 {
@@ -798,6 +816,12 @@ section {
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: var(--shadow-md);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.method-figure:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
 }
 
 .method-figure-image {

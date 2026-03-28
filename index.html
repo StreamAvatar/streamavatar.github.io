@@ -464,9 +464,9 @@
                 <div class="result-card">
                     <h3 class="subsection-title">User Study</h3>
                     <p class="subsection-description">
-                        User preference study comparing our method against baselines across multiple criteria: audio–lip synchronization (Sync), motion dynamics (Dynamics), temporal continuity and smoothness (Continuity), visual quality and naturalness (Quality), and identity preservation (Identity). Our method consistently outperforms the state-of-the-art baselines across nearly all comparisons, which aligns closely with our quantitative evaluation.
+                        User preference study comparing our method against baselines across multiple criteria: audio–lip synchronization (Sync), motion dynamics (Dynamics), temporal continuity and smoothness (Continuity), visual quality and naturalness (Quality), and identity preservation (Identity). Results are formatted as “Ours% / Baseline%”, and the remaining percentage accounts for “no preference”. Our method consistently outperforms the state-of-the-art baselines across nearly all comparisons, which aligns closely with our quantitative evaluation.
                     </p>
-                    <img src="assets/user_study.png" alt="User study results" class="result-image result-image-narrow">
+                    <img src="assets/user_study.png" alt="User study results" class="result-image">
                 </div>
 
                 <div class="result-card">
@@ -525,6 +525,12 @@
                 <img src="assets/attention.png" alt="Vanilla RoPE vs RoPE with RAPR comparison" class="method-figure-image">
                 <p class="method-figure-caption">
                     <strong>Vanilla RoPE vs RoPE with Reference-Anchored Positional Re-encoding (RAPR).</strong> RAPR improves long video generation without the need for long video training.
+                </p>
+            </div>
+            <div class="method-figure">
+                <img src="assets/structure.png" alt="Architecture of the interactive human video generation model" class="method-figure-image" style="max-width: 600px;">
+                <p class="method-figure-caption">
+                    <strong>The architecture of our interactive human video generation teacher model.</strong> We extend the original video model with audio-related modules to support talking and listening audio conditioning.
                 </p>
             </div>
         </div>
